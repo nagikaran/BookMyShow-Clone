@@ -1,8 +1,12 @@
 package edu.bookmyshow.project.services;
 
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 
 import edu.bookmyshow.project.dao.CustomerDao;
 import edu.bookmyshow.project.dto.CustomerDto;
@@ -27,6 +31,30 @@ public class CustomerService implements CustomerServiceInterface {
 		customerDto.setCustomerEmail(saveTheCustomerDetails.getCustomerEmail());
 		customerDto.setCustomrPhoneNumber(saveTheCustomerDetails.getCustomrPhoneNumber());
 		return entityToCustomerClassDto;
+	}
+	
+	
+
+	@Override
+	public ResponseEntity<CustomerDto> getCustomerDetailsAsperId(long customerId) {
+		// TODO Auto-generated method stub
+	    Logger logger = LoggerFactory.getLogger(this.getClass());
+	    logger.info("getCustomerDetailsAsperId - customerId: {}", customerId);
+
+	    Customer customerDetailsAsPerId = customerDao.getCustomerDetailsAsPerId(customerId);
+	    if (customerDetailsAsPerId != null) {
+	        CustomerDto customerDto = new CustomerDto();
+	        customerDto.setCustomerId(customerDetailsAsPerId.getCustomerId());
+	        customerDto.setCustomerName(customerDetailsAsPerId.getCustomerName());
+	        customerDto.setCustomerEmail(customerDetailsAsPerId.getCustomerEmail());
+	        customerDto.setCustomrPhoneNumber(customerDetailsAsPerId.getCustomrPhoneNumber());
+
+	        logger.info("getCustomerDetailsAsperId - customerDto: {}", customerDto);
+	        return ResponseEntity.ok(customerDto);
+	    }
+
+	    logger.info("getCustomerDetailsAsperId - No data found for customerId: {}", customerId);
+	    return null;
 	}
 	
 	/*now we are going to change the object as per the requiremnet

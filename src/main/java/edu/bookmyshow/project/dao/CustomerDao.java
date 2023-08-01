@@ -1,5 +1,7 @@
 package edu.bookmyshow.project.dao;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,5 +19,19 @@ public class CustomerDao {
 		return customerDetails;
 		
 	}
+
+	public Customer getCustomerDetailsAsPerId(long customerId) {
+		// TODO Auto-generated method stub
+		Optional<Customer> findById = customerRepository.findById(customerId);
+		if(findById!=null) {
+			Customer customer = findById.get();
+			return customer;
+		}
+		return null;
+		
+		
+	}
+	
+	
 
 }
