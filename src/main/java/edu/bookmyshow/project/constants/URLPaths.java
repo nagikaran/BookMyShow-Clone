@@ -15,5 +15,8 @@ public interface URLPaths {
 	/*GET API to get the details of the customer as per the id*/
 	final String CUSTOMER_DETAILS_AS_PER_ID="/customerDetailsAsPerId";
 	
+	/*PUT API updating the details of the customer as per the id of the customer*/
+	final String CUSTOMER_DETAILS_UPDATE_AS_PER_ID="/customerDetailsUpdate";
+	
 
 }

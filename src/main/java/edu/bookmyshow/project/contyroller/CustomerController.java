@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,25 +25,26 @@ public class CustomerController {
 	
 	@Autowired
 	CustomerServiceInterface customerServiceInterface;
-	/*api to save the details of the customer*/
+
+	/* api to save the details of the customer */
 	@PostMapping(value = URLPaths.CUSTOMER_DETAIL_SAVE)
-	public ResponseEntity<CustomerDto> saveTheCustomerDetails(@RequestBody Customer customer){
+	public ResponseEntity<CustomerDto> saveTheCustomerDetails(@RequestBody Customer customer) {
 		CustomerDto saveCustomerDetails = customerServiceInterface.saveCustomerDetails(customer);
 		return ResponseEntity.ok(saveCustomerDetails);
 	}
-	
-	/*api to get the detauls of the customer as per the id*/
+
+	/* api to get the detauls of the customer as per the id */
 	@GetMapping(value = URLPaths.CUSTOMER_DETAILS_AS_PER_ID + "/{customerId}")
 	public ResponseEntity<?> getTheDetailsOfTheCustomer(@PathVariable long customerId) {
 
 		try {
-			ResponseEntity<CustomerDto> customerDetailsAsperId = customerServiceInterface.getCustomerDetailsAsperId(customerId);
+			ResponseEntity<CustomerDto> customerDetailsAsperId = customerServiceInterface
+					.getCustomerDetailsAsperId(customerId);
 			if (customerDetailsAsperId != null) {
 				return ResponseEntity.ok(customerDetailsAsperId);
-			} else if(customerDetailsAsperId==null) {
+			} else if (customerDetailsAsperId == null) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorMessages.NO_DATA_FOUND_FOR_THESE_ID);
-			}
-			else {
+			} else {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorMessages.NO_DATA_FOUND_FOR_THESE_ID);
 			}
 
@@ -51,8 +53,13 @@ public class CustomerController {
 		}
 
 	}
-	
-	/**/
+
+	/* API to update the details of the customer */
+	@PutMapping(value = URLPaths.CUSTOMER_DETAILS_UPDATE_AS_PER_ID + "/{customerId}")
+	public ResponseEntity<CustomerDto> updatingTheDetailsOfTheCustomer(@PathVariable long customerId,@RequestBody Customer customer) {
+		CustomerDto updateDetailsOfTheCustomerAsPerId = customerServiceInterface.updateDetailsOfTheCustomerAsPerId(customerId, customer);
+	    return ResponseEntity.ok(updateDetailsOfTheCustomerAsPerId);
+	}
 	
 
 }

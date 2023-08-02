@@ -11,4 +11,6 @@ public interface CustomerServiceInterface {
 
 	public ResponseEntity<CustomerDto> getCustomerDetailsAsperId(long customerId);
 
+	public CustomerDto updateDetailsOfTheCustomerAsPerId(long customerId, Customer customer);
+
 }

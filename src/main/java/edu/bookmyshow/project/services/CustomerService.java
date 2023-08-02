@@ -57,6 +57,13 @@ public class CustomerService implements CustomerServiceInterface {
 	    return null;
 	}
 	
+	@Override
+	public CustomerDto updateDetailsOfTheCustomerAsPerId(long customerId, Customer customer) {
+		// TODO Auto-generated method stub
+		Customer updateCustomerDetailsAsPerId = customerDao.updateCustomerDetailsAsPerId(customerId,customer);
+		CustomerDto entityToCustomerClassDto = entityToCustomerClassDto(updateCustomerDetailsAsPerId);
+		return entityToCustomerClassDto;
+	}
 	/*now we are going to change the object as per the requiremnet
 	 * like from entity to dto and dto to entity
 	 * */
