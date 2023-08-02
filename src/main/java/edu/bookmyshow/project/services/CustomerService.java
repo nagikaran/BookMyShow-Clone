@@ -1,5 +1,6 @@
 package edu.bookmyshow.project.services;
 
+
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-
+import edu.bookmyshow.project.constants.ErrorMessages;
+import edu.bookmyshow.project.constants.SuccessMessages;
 import edu.bookmyshow.project.dao.CustomerDao;
 import edu.bookmyshow.project.dto.CustomerDto;
 import edu.bookmyshow.project.entity.Customer;
@@ -64,6 +66,21 @@ public class CustomerService implements CustomerServiceInterface {
 		CustomerDto entityToCustomerClassDto = entityToCustomerClassDto(updateCustomerDetailsAsPerId);
 		return entityToCustomerClassDto;
 	}
+	@Override
+	public String deleteCustomerAsPerId(long customerId) {
+		// TODO Auto-generated method stub
+		ResponseEntity<CustomerDto> customerDetailsAsperId = getCustomerDetailsAsperId(customerId);
+		if(customerDetailsAsperId!=null) {
+			customerDao.deleteCustomerAsPerId(customerId);
+			return SuccessMessages.CUSTOMER_DELETED_SUCCESSFULLY;
+		}
+		else {
+			return ErrorMessages.SOMETHINGH_WENT_WRONG_WHILE_DELETING_DATA;
+		}
+		
+		
+	}
+	
 	/*now we are going to change the object as per the requiremnet
 	 * like from entity to dto and dto to entity
 	 * */

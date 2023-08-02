@@ -55,6 +55,12 @@ public class CustomerDao {
 	
 		
 	}
+
+	public void deleteCustomerAsPerId(long customerId) {
+		// TODO Auto-generated method stub
+		customerRepository.deleteById(customerId);
+		
+	}
 	
 	
 

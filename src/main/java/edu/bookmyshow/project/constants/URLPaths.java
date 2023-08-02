@@ -18,5 +18,8 @@ public interface URLPaths {
 	/*PUT API updating the details of the customer as per the id of the customer*/
 	final String CUSTOMER_DETAILS_UPDATE_AS_PER_ID="/customerDetailsUpdate";
 	
+	/*DELETE API to delete the customer as per the id*/
+	final String DELETE_CUSTOMER_AS_PER_ID="/deleteCustomer";
+	
 
 }

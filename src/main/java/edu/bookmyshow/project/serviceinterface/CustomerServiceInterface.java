@@ -13,4 +13,6 @@ public interface CustomerServiceInterface {
 
 	public CustomerDto updateDetailsOfTheCustomerAsPerId(long customerId, Customer customer);
 
+	public String deleteCustomerAsPerId(long customerId);
+
 }

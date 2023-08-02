@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.bookmyshow.project.constants.ErrorMessages;
+import edu.bookmyshow.project.constants.SuccessMessages;
 import edu.bookmyshow.project.constants.URLPaths;
 import edu.bookmyshow.project.dto.CustomerDto;
 import edu.bookmyshow.project.entity.Customer;
@@ -59,6 +61,18 @@ public class CustomerController {
 	public ResponseEntity<CustomerDto> updatingTheDetailsOfTheCustomer(@PathVariable long customerId,@RequestBody Customer customer) {
 		CustomerDto updateDetailsOfTheCustomerAsPerId = customerServiceInterface.updateDetailsOfTheCustomerAsPerId(customerId, customer);
 	    return ResponseEntity.ok(updateDetailsOfTheCustomerAsPerId);
+	}
+	
+	@DeleteMapping(value = URLPaths.DELETE_CUSTOMER_AS_PER_ID+"/{customerId}")
+	public ResponseEntity<String> deletingCustomerAsPerId(@PathVariable long customerId){
+		String deleteCustomerAsPerId = customerServiceInterface.deleteCustomerAsPerId(customerId);
+		if(deleteCustomerAsPerId!=null) {
+			return ResponseEntity.status(HttpStatus.OK).body(SuccessMessages.CUSTOMER_DELETED_SUCCESSFULLY);
+		}
+		else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorMessages.SOMETHINGH_WENT_WRONG_WHILE_DELETING_DATA);
+		}
+		
 	}
 	
 
